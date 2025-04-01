@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lavrum - Chat room</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #222222; color: white; height: auto; margin: 0px; padding: 15px; }
+        main { display: flex; justify-content: center; height: 90%; }
+        h1 { text-align: center; }
+        .center { max-width: 800px; }
+        #messages { height: 500px; overflow-y: scroll; border: none; border-radius: 5px; padding-left: 5px; padding-right: 5px; margin-bottom: 10px; background-color: #313638; }
+        .message { color: #FFFFFF; width: 80%; height: auto; background-color: #666666; border-radius: 15px; margin-top: 5px; margin-bottom: 5px;}
+        .message p { width: auto; height: auto; padding: 10px; margin: 0px; word-wrap: break-word ;text-wrap:pretty; }
+        #chat-form { display: flex; background-color: #313638; color: white;}
+        #chat-input { flex-grow: 1; padding: 5px; background-color: transparent; color: white; border: none; }
+        #chat-input:focus { border: none !important; outline: none; }
+        #chat-submit { background-color: #666666; color: white; cursor: default; width: 70px; }
+        #chat-submit:hover { cursor: pointer; }
+        button { padding: 5px; border: 0px; }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="center">
+            <h1>Lavrum</h1>
+            <div id="messages"></div>
+            <form id="chat-form">
+                <input id="chat-input" autocomplete="off" placeholder="Type a message..." />
+                <button id="chat-submit">Send</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const socket = io();
+            const form = document.getElementById("chat-form");
+            const input = document.getElementById("chat-input");
+            const messagesDiv = document.getElementById("messages");
+
+            // Load chat history
+            socket.on("chatHistory", (messages) => {
+                messages.forEach((msg) => addMessage(msg));
+            });
+
+            // Add new message to chat
+            socket.on("chatMessage", (msg) => {
+                addMessage(msg);
+            });
+
+            // Handle form submission
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                if (input.value.trim()) {
+                    socket.emit("chatMessage", input.value);
+                    input.value = "";
+                }
+            });
+
+            // Function to add a message to the chat
+            function addMessage(msg) {
+                messagesList = document.getElementById("messages");
+                const messageHTML = '<div class="message"><p>' + msg + '</p></div>';
+                messagesList.insertAdjacentHTML("beforeend", messageHTML);
+                messagesList.scrollTop = messagesDiv.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
