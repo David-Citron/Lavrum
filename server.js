@@ -15,9 +15,10 @@ io.on("connection", (socket) => {
 
     socket.emit("chatHistory", messages);
 
-    socket.on("chatMessage", (msg) => {
-        messages.push(msg); 
-        io.emit("chatMessage", msg);
+    socket.on("chatMessage", ({ username, msg }) => {
+        const messageData = { username, msg };
+        messages.push(messageData);
+        io.emit("chatMessage", messageData);
     });
 
     socket.on("disconnect", () => {

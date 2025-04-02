@@ -1,4 +1,8 @@
-html, body {
+html {
+
+}
+
+body {
     font-family: Arial, sans-serif;
     background-color: #222222;
     color: white;
@@ -10,6 +14,8 @@ html, body {
     align-items: center;
     overflow: hidden; /* Prevents scrolling outside of flexbox container */
     overscroll-behavior: contain; /* Stops the UI from collapsing when scrolling */
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 main {
@@ -36,15 +42,14 @@ h1 {
 
 #messages {
     flex-grow: 1;
+    box-sizing: border-box;
     overflow-y: auto; /* Internal scrolling only */
     border: none;
     border-radius: 5px;
     padding: 5px;
     background-color: #313638;
     min-height: 0;
-    width: 100vw;
-    max-width: 550px;
-    -webkit-overflow-scrolling: touch; /* Improves mobile scrolling */
+    width: 100%;
     overscroll-behavior: contain; /* Prevents scroll from affecting UI */
 }
 
@@ -63,6 +68,19 @@ h1 {
 
 #messages::-webkit-scrollbar-thumb:hover {
     background: #555;
+}
+
+.message-container {
+    width: 100%;
+    display: flex;
+}
+
+.message-sent {
+    justify-content: right;
+}
+
+.message-received {
+    justify-content: left;
 }
 
 .message {
@@ -112,6 +130,7 @@ h1 {
     color: white;
     cursor: pointer;
     width: 70px;
+    border-radius: 2px;
 }
 
 button {
