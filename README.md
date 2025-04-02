@@ -9,3 +9,5 @@ Web app for chatting made in Node.js
 3. Install dependencies:<br>`npm install`
 
 4. Start project:<br>`node server.js`
+
+5. Visit the website in browser (port 80):<br>`localhost`
