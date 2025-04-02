@@ -1,0 +1,120 @@
+html, body {
+    font-family: Arial, sans-serif;
+    background-color: #222222;
+    color: white;
+    height: 100dvh; /* Dynamic viewport height */
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevents scrolling outside of flexbox container */
+    overscroll-behavior: contain; /* Stops the UI from collapsing when scrolling */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden; /* Ensures no scrolling outside */
+}
+
+.center {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+}
+
+#messages {
+    flex-grow: 1;
+    overflow-y: auto; /* Internal scrolling only */
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #313638;
+    min-height: 0;
+    width: 100vw;
+    max-width: 550px;
+    -webkit-overflow-scrolling: touch; /* Improves mobile scrolling */
+    overscroll-behavior: contain; /* Prevents scroll from affecting UI */
+}
+
+#messages::-webkit-scrollbar {
+    width: 10px;
+}
+
+#messages::-webkit-scrollbar-track {
+    background: #222;
+}
+
+#messages::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 5px;
+}
+
+#messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.message {
+    color: #FFFFFF;
+    width: 80%;
+    height: auto;
+    background-color: #666666;
+    border-radius: 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.message p {
+    width: auto;
+    height: auto;
+    padding: 10px;
+    margin: 0px;
+    word-wrap: break-word;
+    text-wrap: pretty;
+}
+
+#chat-form {
+    display: flex;
+    background-color: #313638;
+    color: white;
+    padding: 5px;
+    flex-shrink: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#chat-input {
+    flex-grow: 1;
+    padding: 5px;
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+#chat-input:focus {
+    border: none !important;
+    outline: none;
+}
+
+#chat-submit {
+    background-color: #666666;
+    color: white;
+    cursor: pointer;
+    width: 70px;
+}
+
+button {
+    padding: 5px;
+    border: 0px;
+}
