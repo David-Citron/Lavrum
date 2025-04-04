@@ -8,17 +8,34 @@ const io = socketIo(server);
 
 app.use(express.static("public"));
 
-let messages = [];
+class ChatRoom {
+    constructor(id)
+    {
+        this.id = id;
+        this.messages = [];
+    }
+    addMessage(message)
+    {
+        this.messages.push(message);
+    }
+    getAllMessages()
+    {
+        return this.messages;
+    }
+}
+
+let defaultRoom = new ChatRoom(1);
 
 io.on("connection", (socket) => {
+    socket.join(defaultRoom.id);
     console.log("A user connected");
 
-    socket.emit("chatHistory", messages);
+    socket.to(defaultRoom.id).emit("chatHistory", defaultRoom.getAllMessages());
 
     socket.on("chatMessage", ({ username, msg }) => {
         const messageData = { username, msg };
-        messages.push(messageData);
-        io.emit("chatMessage", messageData);
+        defaultRoom.addMessage(messageData);
+        io.to(defaultRoom.id).emit("chatMessage", messageData);
     });
 
     socket.on("disconnect", () => {
